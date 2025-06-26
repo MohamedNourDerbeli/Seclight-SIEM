@@ -1,0 +1,15 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" version="27.1.6">
+  <diagram name="Page-1" id="EbQRoATn8F9ZB28LpZmu">
+    <mxGraphModel dx="588" dy="637" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <UserObject label="+---------------------+&#xa;|  Filebeat Agent |      ←  /var/log/auth.log, syslog, etc.&#xa;+---------------------+&#xa;        |&#xa;        ↓&#xa;+-----------------+&#xa;|  Flask API     |          ← /api/logs (POST)&#xa;+-----------------+&#xa;        |&#xa;        ↓&#xa;+---------------------+&#xa;|  Rules Engine    |      ← YAML rules (match, threshold)&#xa;+---------------------+&#xa;        |&#xa;        ↓&#xa;+-------------------+&#xa;|  Alert System  |          ← Send Email/Slack&#xa;+-------------------+&#xa;        |&#xa;        ↓&#xa;+-----------------------+&#xa;| PostgreSQL DB  |      ← Save logs and alerts&#xa;+--------------------- -+&#xa;        |&#xa;        ↓&#xa;+-----------------------+&#xa;| Web Dashboard  |  ← View logs/alerts&#xa;+-----------------------+" link="+----------------+&#xa;|  Filebeat Agent|  ←  /var/log/auth.log, syslog, etc.&#xa;+----------------+&#xa;        |&#xa;        ↓&#xa;+----------------+&#xa;|  Flask API     |  ← /api/logs (POST)&#xa;+----------------+&#xa;        |&#xa;        ↓&#xa;+---------------------+&#xa;|  Rules Engine       |  ← YAML rules (match, threshold)&#xa;+---------------------+&#xa;        |&#xa;        ↓&#xa;+----------------+&#xa;|  Alert System  |  ← Send Email/Slack&#xa;+----------------+&#xa;        |&#xa;        ↓&#xa;+----------------+&#xa;| PostgreSQL DB  |  ← Save logs and alerts&#xa;+----------------+&#xa;        |&#xa;        ↓&#xa;+----------------+&#xa;| Web Dashboard  |  ← View logs/alerts&#xa;+----------------+" id="RSVieABwPAUDVVj8xB9q-1">
+          <mxCell style="text;whiteSpace=wrap;" vertex="1" parent="1">
+            <mxGeometry x="270" y="200" width="330" height="440" as="geometry" />
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
