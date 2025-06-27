@@ -1,1 +1,48 @@
+version: '3.8'
 
+services:
+  flask:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    networks:
+      - seclightnet
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:5000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  logstash:
+    build: ./logstash
+    ports:
+      - "5044:5044"
+    networks:
+      - seclightnet
+    restart: unless-stopped
+    depends_on:
+      flask:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "nc", "-z", "logstash", "5044"] # Checks if port 5044 is open
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  filebeat:
+    build: ./filebeat
+    user: root
+    volumes:
+      - /var/log:/var/log:ro
+    depends_on:
+      logstash:
+        condition: service_healthy
+    networks:
+      - seclightnet
+    restart: unless-stopped
+
+networks:
+  seclightnet:

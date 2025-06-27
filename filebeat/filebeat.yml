@@ -1,0 +1,9 @@
+filebeat.inputs:
+  - type: filestream
+    id: authlog-input
+    enabled: true
+    paths:
+      - /var/log/auth.log
+
+output.logstash:
+  hosts: ["logstash:5044"]

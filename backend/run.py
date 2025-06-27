@@ -1,5 +1,8 @@
-from flask import Flask, request
+from flask import Flask, jsonify, request
+import logging
+import json
 
+logging.getLogger('werkzeug').setLevel(logging.ERROR)
 app = Flask(__name__)
 
 def check_bruteforce(log_message: str) -> bool:
@@ -8,12 +11,19 @@ def check_bruteforce(log_message: str) -> bool:
 
 @app.route("/api/logs", methods=["POST"])
 def receive_logs():
-    data = request.get_json()
-    log_text = data.get("message") or data.get("event").get("original", "")
-    if check_bruteforce(log_text):
-        print(f"ALERT: Potential brute force detected: {log_text}")
-        exit(1)
-    return {"status": "received"}, 200
+    log_data = request.json
+    print("Received log data:", log_data)  # Dev use only
+    logging.info(json.dumps(log_data))     # Structured logging
+    return jsonify({"status": "received"})
+
+# Add this health check endpoint
+@app.route("/health", methods=["GET"])
+def health_check():
+    """
+    Health check endpoint for Docker Compose.
+    Returns a simple JSON response to indicate the service is running.
+    """
+    return jsonify({"status": "ok"}), 200
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(host="0.0.0.0", port=5000)
